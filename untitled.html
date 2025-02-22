@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pearl Harbor Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+    }
+    h1 {
+      color: #1e90ff;
+    }
+    .question {
+      font-size: 20px;
+      margin: 20px;
+    }
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      margin: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .feedback {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Pearl Harbor Quiz</h1>
+
+  <div id="quiz">
+    <div class="question" id="question-text"></div>
+    <button onclick="checkAnswer('A')">A. Answer 1</button>
+    <button onclick="checkAnswer('B')">B. Answer 2</button>
+    <button onclick="checkAnswer('C')">C. Answer 3</button>
+    <button onclick="checkAnswer('D')">D. Answer 4</button>
+    <div id="feedback" class="feedback"></div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "When did the attack on Pearl Harbor occur?",
+        options: ["December 7, 1941", "July 4, 1776", "October 31, 1942", "November 22, 1943"],
+        correctAnswer: "A"
+      },
+      {
+        question: "Which country attacked Pearl Harbor?",
+        options: ["Germany", "Japan", "Italy", "Russia"],
+        correctAnswer: "B"
+      },
+      {
+        question: "What was the name of the U.S. battleship sunk at Pearl Harbor?",
+        options: ["USS Arizona", "USS Missouri", "USS Enterprise", "USS Lexington"],
+        correctAnswer: "A"
+      }
+    ];
+
+    let currentQuestion = 0;
+
+    function loadQuestion() {
+      const question = questions[currentQuestion];
+      document.getElementById("question-text").textContent = question.question;
+      const buttons = document.querySelectorAll("button");
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].textContent = `${String.fromCharCode(65 + i)}. ${question.options[i]}`;
+      }
+      document.getElementById("feedback").textContent = "";
+    }
+
+    function checkAnswer(selectedAnswer) {
+      const question = questions[currentQuestion];
+      const feedback = document.getElementById("feedback");
+      if (selectedAnswer === question.correctAnswer) {
+        feedback.textContent = "Correct! Well done!";
+        feedback.style.color = "green";
+      } else {
+        feedback.textContent = `Oops! The correct answer was ${question.correctAnswer}.`;
+        feedback.style.color = "red";
+      }
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        setTimeout(loadQuestion, 2000);
+      } else {
+        setTimeout(() => alert("Quiz Completed! Great job!"), 2000);
+      }
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
